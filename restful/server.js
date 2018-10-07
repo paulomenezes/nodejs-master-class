@@ -69,6 +69,11 @@ const handlers = {
   ping: (data, callback) => {
     callback(200);
   },
+  hello: (data, callback) => {
+    callback(200, {
+      message: 'Hello World!',
+    });
+  },
   notFound: (data, callback) => {
     callback(404);
   },
@@ -77,6 +82,7 @@ const handlers = {
 // Define a request router
 const router = {
   ping: handlers.ping,
+  hello: handlers.hello,
 };
 
 module.exports = server;
