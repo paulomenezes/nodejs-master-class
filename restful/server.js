@@ -73,6 +73,7 @@ const router = {
   ping: handlers.ping,
   hello: handlers.hello,
   users: handlers.users,
+  tokens: handlers.tokens,
 };
 
 module.exports = server;
