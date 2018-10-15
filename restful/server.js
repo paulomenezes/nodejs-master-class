@@ -1,6 +1,9 @@
 const url = require('url');
 const StringDecoder = require('string_decoder').StringDecoder;
 
+const handlers = require('./lib/handlers');
+const helpers = require('./lib/helpers');
+
 // All the server logic for both http and https server
 const server = (req, res) => {
   // Get the URL and parse it
@@ -40,7 +43,7 @@ const server = (req, res) => {
       queryStringObject,
       method,
       headers,
-      payload: buffer,
+      payload: helpers.parseJsonToObject(buffer),
     };
 
     // Route the request to the handler specified in the router
@@ -65,24 +68,11 @@ const server = (req, res) => {
   });
 };
 
-const handlers = {
-  ping: (data, callback) => {
-    callback(200);
-  },
-  hello: (data, callback) => {
-    callback(200, {
-      message: 'Hello World!',
-    });
-  },
-  notFound: (data, callback) => {
-    callback(404);
-  },
-};
-
 // Define a request router
 const router = {
   ping: handlers.ping,
   hello: handlers.hello,
+  users: handlers.users,
 };
 
 module.exports = server;
